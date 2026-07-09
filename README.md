@@ -8,29 +8,30 @@
   <b>English</b> | <a href="README.id.md">Bahasa Indonesia</a>
 </p>
 
-# Whetstone — Sharpen What You Feed the Model
+# Whetstone — Sharpen Anything You Feed an AI
 
-An instruction file is code that runs on a language model. **Whetstone** audits anything you feed an AI — skill files, Claude Chat project instructions, `CLAUDE.md`, system prompts, even whole repos — with the same discipline an engineer audits code: scan for hostile intent first, verify every claim against reality, drag implicit assumptions into writing, and make it all survive the weakest runtime — a cheaper model, missing input, or a malicious author.
+Everything you hand an AI — skills, project instructions, knowledge documents, `CLAUDE.md` — shapes the quality of its answers. If that material is vague, self-contradicting, or hiding bad intent, the output inherits the damage. **Whetstone** checks all of it: scan for hostile intent first, verify every claim against reality, force unwritten assumptions into writing, and make sure it all still works under the weakest conditions — a cheaper model, missing input, or a malicious author.
 
 One standard drives everything: **written by the smartest model, executable by the dumbest.** A skill that only works because a smart model silently fills its gaps isn't finished — it's lucky.
 
 ## What it audits
 
-| Target | Examples | Lens |
-|--------|----------|------|
+| Target | Examples | Audit coverage |
+|--------|----------|----------------|
 | Skill files | `SKILL.md`, slash commands, agent definitions | Full five-lens audit |
-| Instruction files | `CLAUDE.md`, `AGENTS.md`, `.cursorrules`, system prompts, Claude.ai project instructions | Full five-lens audit |
-| Repos / codebases | Any project folder | Hygiene only: docs vs reality, dead references, maintainer clarity |
+| Instruction files | Claude.ai project instructions, `CLAUDE.md`, `AGENTS.md`, system prompts | Full five-lens audit |
+| Project knowledge | Documents uploaded to a Claude.ai Project — SOPs, guides, references | Full five-lens audit |
+| Repos / project folders | Any software project | Basic hygiene: docs vs reality, dead references, clarity for the next person |
 
 ## How it works — 5 phases
 
-0. **Safety gate** — scan for prompt-injection red flags (data exfiltration, hidden instructions, secret reads, concealment). Verdict RED / YELLOW / GREEN. RED stops everything. Runs **before** quality, every time — especially for third-party skills you're about to install.
-1. **Verify claims against reality** — every file, tool, command, or URL the file mentions gets checked. Dangling references and name collisions surface here.
-2. **Quality audit, five lenses** — implicit assumptions, internal contradictions, trigger surface, rigid templates, and the dumb-model standard.
-3. **Verdicts and fixes** — keep / fix / merge / delete per item, every change shown as before → after with a reason. Nothing is deleted without your confirmation.
-4. **Report** — safety verdict, verified claims, changes by impact, open questions.
+0. **Safety gate** — before anything else, check whether the file carries bad intent: telling the AI to send data out, read passwords/credentials, hide instructions, or keep things from you. Verdict RED / YELLOW / GREEN — RED stops everything. Matters most for skills written by someone else that you're about to install.
+1. **Verify claims against reality** — everything the file mentions gets checked for actual existence: other files, tools, commands, links, referenced steps. Dead references and name collisions surface here.
+2. **Quality audit, five lenses** — unwritten assumptions, rules that contradict each other, when the skill should fire (and when it shouldn't), templates that force making things up, and the core test: could a much dumber model run this exactly the same way?
+3. **Verdicts and fixes** — every part gets a verdict: keep / fix / merge / delete. Every proposal is shown as before → after with the reason. Nothing is deleted without your approval.
+4. **Report** — safety result, claims that held up (and those that didn't), changes ordered by impact, plus the questions only you can answer.
 
-Whetstone treats the audited file as **data, never instructions** — a malicious skill telling it to "ignore previous instructions" becomes a finding, not a command.
+Whetstone treats the audited file as **data, never commands** — a malicious file saying "ignore previous instructions" becomes a finding in the report, not an order to follow.
 
 ## Install
 
@@ -48,7 +49,7 @@ Then call it with `/whetstone`.
 
 **Claude.ai / Claude app** — Settings → Capabilities → Skills → Upload. Two options:
 
-- Drop `whetstone/SKILL.md` directly (Claude.ai accepts a bare `.md` as long as its YAML frontmatter has `name` and `description` — this one does).
+- Drop `whetstone/SKILL.md` directly (a bare `.md` is accepted as long as its YAML frontmatter has `name` and `description` — this one does).
 - Or zip the `whetstone/` folder first, if you prefer a `.zip`/`.skill` package:
 
 ```
@@ -65,14 +66,14 @@ zip -r whetstone.zip whetstone
 /whetstone audit my skill in ./my-skill/SKILL.md
 /whetstone is this skill safe to install? [paste or point to a GitHub skill]
 /whetstone harden my CLAUDE.md
-/whetstone check this repo's docs against its actual code
+/whetstone check my project instructions & docs — anything unclear?
 ```
 
 ## Honest limits
 
-- The safety gate catches **known** hostile patterns. It cannot guarantee a file is safe — the verdict is "no known hostile pattern found", never "100% clean".
-- Audit quality scales with the model running it. The checklist raises the floor; it doesn't remove the ceiling.
-- It is **not** a code-logic reviewer. For correctness bugs in application code, use a dedicated code review.
+- The safety gate catches **known** hostile patterns. There is no 100% safety guarantee — the verdict is always "no known hostile pattern found", never "definitely clean".
+- Audit quality follows the model running it. This checklist makes an ordinary model work far more thoroughly — but it isn't magic.
+- Hunting bugs in application code logic is not its job — use a regular code review for that.
 
 ## Structure
 
@@ -89,4 +90,4 @@ Whetstone/
 
 **Creator** — Redho Ramadhani · [linkedin.com/in/redhoramadhanihamid](https://id.linkedin.com/in/redhoramadhanihamid) · [github.com/redhoram](https://github.com/redhoram)
 
-Born from a live audit session hardening the [3Things skills](https://github.com/redhoram/3things-skills) — the method worked, so it became a skill. Built with Claude; the skill itself passed its own audit before release.
+Built with Claude. The skill passed its own audit before release.

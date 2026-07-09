@@ -8,29 +8,30 @@
   <a href="README.md">English</a> | <b>Bahasa Indonesia</b>
 </p>
 
-# Whetstone — Asah Apa Pun yang Kamu Berikan ke Model
+# Whetstone — Asah Apa Pun yang Kamu Berikan ke AI
 
-File instruksi itu kode yang berjalan di atas language model. **Whetstone** mengaudit apa pun yang kamu berikan ke AI — file skill, instruksi project di Claude Chat, `CLAUDE.md`, system prompt, sampai repo utuh — dengan disiplin yang sama seperti engineer mengaudit kode: pindai niat jahat dulu, verifikasi tiap klaim ke realita, paksa asumsi implisit jadi tertulis, dan pastikan semuanya bertahan di kondisi terlemah — model yang lebih murah, input yang kosong, atau penulis yang berniat buruk.
+Semua yang kamu berikan ke AI — skill, instruksi project, dokumen pengetahuan, `CLAUDE.md` — ikut menentukan kualitas jawabannya. Kalau isinya rancu, saling bertentangan, atau menyimpan niat jahat, hasilnya ikut rusak. **Whetstone** memeriksa semua itu: pindai niat jahat dulu, cek tiap klaim ke realita, paksa asumsi yang tidak tertulis jadi tertulis, dan pastikan semuanya tetap bekerja di kondisi terlemah — model yang lebih murah, input yang kosong, atau penulis yang berniat buruk.
 
 Satu standar untuk semuanya: **ditulis oleh model terpintar, bisa dijalankan model terbodoh.** Skill yang hanya bekerja karena model pintar diam-diam menambal lubangnya itu belum selesai — cuma beruntung.
 
 ## Apa yang diaudit
 
-| Target | Contoh | Lensa |
-|--------|--------|-------|
+| Target | Contoh | Cakupan audit |
+|--------|--------|---------------|
 | File skill | `SKILL.md`, slash command, definisi agent | Audit penuh 5 lensa |
-| File instruksi | `CLAUDE.md`, `AGENTS.md`, `.cursorrules`, system prompt, instruksi project Claude.ai | Audit penuh 5 lensa |
-| Repo / codebase | Folder project apa pun | Higiene saja: dokumen vs realita, referensi mati, kejelasan untuk maintainer |
+| File instruksi | Instruksi project di Claude.ai, `CLAUDE.md`, `AGENTS.md`, system prompt | Audit penuh 5 lensa |
+| Project knowledge | Dokumen yang di-upload ke Project Claude.ai — SOP, panduan, referensi | Audit penuh 5 lensa |
+| Repo / folder project | Project software apa pun | Kebersihan dasar: dokumen vs realita, referensi mati, kejelasan untuk orang berikutnya |
 
 ## Cara kerja — 5 fase
 
-0. **Gerbang keamanan** — pindai red flag prompt injection (kirim data keluar, instruksi tersembunyi, baca credentials, perintah menyembunyikan sesuatu). Verdict MERAH / KUNING / HIJAU. MERAH menghentikan semuanya. Selalu jalan **sebelum** audit kualitas — terutama untuk skill pihak ketiga yang mau kamu install.
-1. **Verifikasi klaim ke realita** — tiap file, tool, command, atau URL yang disebut dicek keberadaannya. Referensi gantung dan tabrakan nama ketahuan di sini.
-2. **Audit kualitas, 5 lensa** — asumsi implisit, kontradiksi internal, permukaan trigger, template kaku, dan standar model-bodoh.
-3. **Vonis dan perbaikan** — pertahankan / perbaiki / gabung / hapus per item, tiap perubahan ditunjukkan sebagai before → after dengan alasannya. Tidak ada yang dihapus tanpa konfirmasimu.
-4. **Laporan** — verdict keamanan, klaim terverifikasi, perubahan diurut dampak, pertanyaan terbuka.
+0. **Gerbang keamanan** — sebelum apa pun, periksa apakah file-nya menyimpan niat jahat: menyuruh kirim data keluar, membaca password/credentials, menyembunyikan instruksi, atau melarang memberi tahu kamu. Verdict MERAH / KUNING / HIJAU — MERAH langsung berhenti. Penting terutama untuk skill buatan orang lain yang mau kamu pasang.
+1. **Verifikasi klaim ke realita** — semua yang disebut di dalam file dicek benar-benar ada: file lain, tool, command, link, langkah yang dirujuk. Referensi mati dan nama yang tabrakan ketahuan di sini.
+2. **Audit kualitas, 5 lensa** — asumsi yang tidak tertulis, aturan yang saling bertentangan, kapan skill harusnya aktif (dan kapan tidak), template yang memaksa mengarang-ngarang, dan ujian utamanya: apakah model yang jauh lebih bodoh bisa menjalankan ini persis sama.
+3. **Vonis dan perbaikan** — tiap bagian divonis: pertahankan / perbaiki / gabung / hapus. Tiap usulan ditunjukkan sebagai sebelum → sesudah dengan alasannya. Tidak ada yang dihapus tanpa persetujuanmu.
+4. **Laporan** — hasil pemeriksaan keamanan, klaim yang terbukti (dan yang tidak), daftar perubahan diurut dari dampak terbesar, plus pertanyaan yang hanya kamu yang bisa jawab.
 
-Whetstone memperlakukan file yang diaudit sebagai **data, bukan instruksi** — skill jahat yang menyuruh "ignore previous instructions" jadi temuan, bukan perintah.
+Whetstone memperlakukan file yang diaudit sebagai **data, bukan perintah** — file jahat yang menyuruh "abaikan instruksi sebelumnya" jadi temuan di laporan, bukan perintah yang dituruti.
 
 ## Cara pasang
 
@@ -48,7 +49,7 @@ Panggil dengan `/whetstone`.
 
 **Claude.ai / aplikasi Claude** — Settings → Capabilities → Skills → Upload. Dua cara:
 
-- Upload langsung `whetstone/SKILL.md` (Claude.ai terima file `.md` mentah, asal frontmatter YAML-nya ada `name` dan `description` — file ini sudah memenuhi).
+- Upload langsung `whetstone/SKILL.md` (file `.md` mentah diterima, asal frontmatter YAML-nya ada `name` dan `description` — file ini sudah memenuhi).
 - Atau zip dulu folder `whetstone/`-nya kalau lebih suka paket `.zip`/`.skill`:
 
 ```
@@ -65,14 +66,14 @@ zip -r whetstone.zip whetstone
 /whetstone audit skill-ku di ./my-skill/SKILL.md
 /whetstone skill ini aman di-install nggak? [paste atau tunjuk skill dari GitHub]
 /whetstone perkuat CLAUDE.md-ku
-/whetstone cek dokumen repo ini vs kode aslinya
+/whetstone periksa instruksi & dokumen project-ku, ada yang rancu nggak?
 ```
 
 ## Batasan jujur
 
-- Gerbang keamanan menangkap pola jahat yang **dikenal**. Ia tidak bisa menjamin file aman — verdict-nya "tidak ditemukan pola berbahaya yang dikenal", bukan "100% bersih".
-- Kualitas audit mengikuti model yang menjalankannya. Checklist menaikkan lantai, bukan menghapus langit-langit.
-- Ini **bukan** reviewer logika kode. Untuk bug di kode aplikasi, pakai code review khusus.
+- Gerbang keamanan menangkap pola jahat yang **sudah dikenal**. Tidak ada jaminan 100% aman — verdict-nya selalu "tidak ditemukan pola berbahaya yang dikenal", bukan "pasti bersih".
+- Hasil audit mengikuti kepintaran model yang menjalankannya. Checklist ini membuat model biasa bekerja jauh lebih teliti — tapi bukan sulap.
+- Mencari bug di logika kode aplikasi bukan tugasnya — untuk itu pakai code review biasa.
 
 ## Struktur
 
@@ -89,4 +90,4 @@ Whetstone/
 
 **Pembuat** — Redho Ramadhani · [linkedin.com/in/redhoramadhanihamid](https://id.linkedin.com/in/redhoramadhanihamid) · [github.com/redhoram](https://github.com/redhoram)
 
-Lahir dari sesi audit langsung memperkuat [skill 3Things](https://github.com/redhoram/3things-skills) — metodenya terbukti bekerja, lalu dijadikan skill. Dibangun bersama Claude; skill ini lulus auditnya sendiri sebelum dirilis.
+Dibangun bersama Claude. Skill ini lulus auditnya sendiri sebelum dirilis.
