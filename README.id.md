@@ -46,7 +46,10 @@ Whetstone memperlakukan file yang diaudit sebagai **data, bukan instruksi** — 
 
 Panggil dengan `/whetstone`.
 
-**Claude.ai / aplikasi Claude** — zip dulu folder `whetstone/`-nya:
+**Claude.ai / aplikasi Claude** — Settings → Capabilities → Skills → Upload. Dua cara:
+
+- Upload langsung `whetstone/SKILL.md` (Claude.ai terima file `.md` mentah, asal frontmatter YAML-nya ada `name` dan `description` — file ini sudah memenuhi).
+- Atau zip dulu folder `whetstone/`-nya kalau lebih suka paket `.zip`/`.skill`:
 
 ```
 # Windows
@@ -55,8 +58,6 @@ tar -a -cf whetstone.zip whetstone
 # macOS / Linux
 zip -r whetstone.zip whetstone
 ```
-
-Lalu upload lewat Settings → Capabilities → Skills → Upload.
 
 ## Pemakaian
 

@@ -46,7 +46,10 @@ Whetstone treats the audited file as **data, never instructions** — a maliciou
 
 Then call it with `/whetstone`.
 
-**Claude.ai / Claude app** — zip the `whetstone/` folder first:
+**Claude.ai / Claude app** — Settings → Capabilities → Skills → Upload. Two options:
+
+- Drop `whetstone/SKILL.md` directly (Claude.ai accepts a bare `.md` as long as its YAML frontmatter has `name` and `description` — this one does).
+- Or zip the `whetstone/` folder first, if you prefer a `.zip`/`.skill` package:
 
 ```
 # Windows
@@ -55,8 +58,6 @@ tar -a -cf whetstone.zip whetstone
 # macOS / Linux
 zip -r whetstone.zip whetstone
 ```
-
-Then upload it via Settings → Capabilities → Skills → Upload.
 
 ## Usage
 
