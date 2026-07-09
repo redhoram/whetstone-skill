@@ -10,7 +10,7 @@
 
 # Whetstone — Sharpen What You Feed the Model
 
-An instruction file is code that runs on a language model. **Whetstone** audits it like an engineer audits code: scan for hostile intent first, verify every claim against reality, drag implicit assumptions into writing, and make the file survive the weakest runtime — a cheaper model, missing input, or a malicious author.
+An instruction file is code that runs on a language model. **Whetstone** audits anything you feed an AI — skill files, Claude Chat project instructions, `CLAUDE.md`, system prompts, even whole repos — with the same discipline an engineer audits code: scan for hostile intent first, verify every claim against reality, drag implicit assumptions into writing, and make it all survive the weakest runtime — a cheaper model, missing input, or a malicious author.
 
 One standard drives everything: **written by the smartest model, executable by the dumbest.** A skill that only works because a smart model silently fills its gaps isn't finished — it's lucky.
 
@@ -19,7 +19,7 @@ One standard drives everything: **written by the smartest model, executable by t
 | Target | Examples | Lens |
 |--------|----------|------|
 | Skill files | `SKILL.md`, slash commands, agent definitions | Full five-lens audit |
-| Instruction files | `CLAUDE.md`, `AGENTS.md`, `.cursorrules`, system prompts | Full five-lens audit |
+| Instruction files | `CLAUDE.md`, `AGENTS.md`, `.cursorrules`, system prompts, Claude.ai project instructions | Full five-lens audit |
 | Repos / codebases | Any project folder | Hygiene only: docs vs reality, dead references, maintainer clarity |
 
 ## How it works — 5 phases

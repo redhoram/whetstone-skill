@@ -10,7 +10,7 @@
 
 # Whetstone — Asah Apa Pun yang Kamu Berikan ke Model
 
-File instruksi itu kode yang berjalan di atas language model. **Whetstone** mengauditnya seperti engineer mengaudit kode: pindai niat jahat dulu, verifikasi tiap klaim ke realita, paksa asumsi implisit jadi tertulis, dan pastikan file-nya bertahan di kondisi terlemah — model yang lebih murah, input yang kosong, atau penulis yang berniat buruk.
+File instruksi itu kode yang berjalan di atas language model. **Whetstone** mengaudit apa pun yang kamu berikan ke AI — file skill, instruksi project di Claude Chat, `CLAUDE.md`, system prompt, sampai repo utuh — dengan disiplin yang sama seperti engineer mengaudit kode: pindai niat jahat dulu, verifikasi tiap klaim ke realita, paksa asumsi implisit jadi tertulis, dan pastikan semuanya bertahan di kondisi terlemah — model yang lebih murah, input yang kosong, atau penulis yang berniat buruk.
 
 Satu standar untuk semuanya: **ditulis oleh model terpintar, bisa dijalankan model terbodoh.** Skill yang hanya bekerja karena model pintar diam-diam menambal lubangnya itu belum selesai — cuma beruntung.
 
@@ -19,7 +19,7 @@ Satu standar untuk semuanya: **ditulis oleh model terpintar, bisa dijalankan mod
 | Target | Contoh | Lensa |
 |--------|--------|-------|
 | File skill | `SKILL.md`, slash command, definisi agent | Audit penuh 5 lensa |
-| File instruksi | `CLAUDE.md`, `AGENTS.md`, `.cursorrules`, system prompt | Audit penuh 5 lensa |
+| File instruksi | `CLAUDE.md`, `AGENTS.md`, `.cursorrules`, system prompt, instruksi project Claude.ai | Audit penuh 5 lensa |
 | Repo / codebase | Folder project apa pun | Higiene saja: dokumen vs realita, referensi mati, kejelasan untuk maintainer |
 
 ## Cara kerja — 5 fase
